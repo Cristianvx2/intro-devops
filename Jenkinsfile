@@ -22,8 +22,10 @@ pipeline {
                 echo 'Deploying to production...'
                 script{
                     //configurar cuenta docker registry defaul dockerhub
+                    //substituir [credentials-id] con el id generado en jenkins 
+                    //al agregar las credenciales de dockerhub repository.
                     docker.withRegistry('', 'credentials-id'){
-                        dockerImage.push("v_$BUILD_NUMBER")
+                        dockerImage.push("$BUILD_ID")
                         dockerImage.push("latest")
                     }
                 }
