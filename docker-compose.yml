@@ -4,11 +4,19 @@ services:
   
   app-server:
     container_name: app
+    depends_on:
+      - db
     build:
       context: . 
       dockerfile: Dockerfile
     ports:
       - "8080:8080" 
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/docker?useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    networks:
+      - common-network
 
   # Database Service (Mysql)
   db:
@@ -17,7 +25,15 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: docker
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - common-network
     
   jenkins:
     container_name: jenkins
@@ -30,3 +46,11 @@ services:
       - ./jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
+
+networks:
+  common-network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
