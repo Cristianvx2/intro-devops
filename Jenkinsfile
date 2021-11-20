@@ -24,7 +24,7 @@ pipeline {
                     //configurar cuenta docker registry defaul dockerhub
                     //substituir [credentials-id] con el id generado en jenkins 
                     //al agregar las credenciales de dockerhub repository.
-                    docker.withRegistry('', 'credentials-id'){
+                    docker.withRegistry('', 'b218e845-8e0d-4e46-9688-17bdea1a3876'){
                         dockerImage.push("$BUILD_ID")
                         dockerImage.push("latest")
                     }
