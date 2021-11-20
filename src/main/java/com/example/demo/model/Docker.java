@@ -1,4 +1,4 @@
-package com.example.demo.model;
+/* package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,3 +33,4 @@ public class Docker {
 		this.published = published;
 	}
 }
+ */
