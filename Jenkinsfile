@@ -4,10 +4,12 @@ pipeline {
     stages {
         stage('Build'){
             steps {
-                //apuntar hacia un repository images as dockerhub
-                dockerImage = docker.build "cristianvx2dockerhub/spring_boot_app" 
                 echo 'Hello World from Jenkinsfile'
                 echo 'Building project...'
+                script{
+                    //apuntar hacia un repository images as dockerhub
+                    dockerImage = docker.build "cristianvx2dockerhub/spring_boot_app" 
+                }
             }
         }
         stage('Test'){
