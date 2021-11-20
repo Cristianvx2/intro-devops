@@ -20,12 +20,13 @@ pipeline {
         stage('Deploy'){
             steps {
                 echo 'Deploying to production...'
-                //configurar cuenta docker registry defaul dockerhub
-                docker.withRegistry('', 'credentials-id'){
-                    dockerImage.push("v_$BUILD_NUMBER")
-                    dockerImage.push("latest")
-                } 
-
+                script{
+                    //configurar cuenta docker registry defaul dockerhub
+                    docker.withRegistry('', 'credentials-id'){
+                        dockerImage.push("v_$BUILD_NUMBER")
+                        dockerImage.push("latest")
+                    }
+                }
             }
         }
     }
